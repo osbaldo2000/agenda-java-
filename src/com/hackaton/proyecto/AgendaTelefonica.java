@@ -16,7 +16,8 @@ import java.util.Scanner;
                 System.out.println("1. Agregar Contacto");
                 System.out.println("2. Ver Contactos");
                 System.out.println("3. Eliminar Contacto");
-                System.out.println("4. Salir");
+                System.out.println("4. Modificar Teléfono");
+                System.out.println("5. Salir");
                 System.out.print("Seleccione una opción: ");
                 opcion = scanner.nextInt();
                 scanner.nextLine(); // Limpiar buffer
@@ -32,12 +33,15 @@ import java.util.Scanner;
                         eliminarContacto();
                         break;
                     case 4:
+                        modificarTelefono();
+                        break;
+                    case 5:
                         System.out.println("Saliendo...");
                         break;
                     default:
                         System.out.println("Opción no válida");
                 }
-            } while (opcion != 4);
+            } while (opcion != 5);
         }
 
         private static void agregarContacto() {
@@ -82,6 +86,27 @@ import java.util.Scanner;
                 if (indice > 0 && indice <= contactos.size()) {
                     contactos.remove(indice - 1);
                     System.out.println("Contacto eliminado correctamente.");
+                } else {
+                    System.out.println("Número inválido.");
+                }
+            }
+        }
+
+        private static void modificarTelefono() {
+            verContactos();
+            if (!contactos.isEmpty()) {
+                System.out.print("Ingrese el número del contacto a modificar: ");
+                int indice = scanner.nextInt();
+                scanner.nextLine();
+                if (indice > 0 && indice <= contactos.size()) {
+                    System.out.print("Ingrese el nuevo teléfono: ");
+                    String nuevoTelefono = scanner.nextLine();
+                    while (nuevoTelefono.isEmpty()) {
+                        System.out.print("Teléfono no debe estar vacío: ");
+                        nuevoTelefono = scanner.nextLine();
+                    }
+                    contactos.get(indice - 1).setTelefono(nuevoTelefono);
+                    System.out.println("Teléfono actualizado correctamente.");
                 } else {
                     System.out.println("Número inválido.");
                 }
