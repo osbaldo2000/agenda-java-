@@ -8,7 +8,6 @@ import java.util.Scanner;
         private static ArrayList<Contacto> contactos = new ArrayList<>();
         private static Scanner scanner = new Scanner(System.in);
 
-
         public void iniciarAgenda() {
             int opcion;
             do {
@@ -59,8 +58,13 @@ import java.util.Scanner;
                 System.out.print("Telefono no debe estar vacio: ");
                 telefono = scanner.nextLine();
             }
-            contactos.add(new Contacto(nombre, apellido, telefono));
-            System.out.println("Contacto agregado correctamente.");
+
+            if(existeContacto(nombre, apellido, telefono)){
+                System.out.println("Este contacto ya existe");
+            }else {
+                contactos.add(new Contacto(nombre, apellido, telefono));
+                System.out.println("Contacto agregado correctamente.");
+            }
         }
 
         private static void verContactos() {
@@ -86,6 +90,17 @@ import java.util.Scanner;
                     System.out.println("Número inválido.");
                 }
             }
+        }
+
+        private static boolean existeContacto(String nombre, String apellido, String telefono){
+            for (int i = 0; i < contactos.size(); i++) {
+                boolean nom = contactos.get(i).getNombre().contains(nombre);
+                boolean app = contactos.get(i).getApellido().contains(apellido);
+                if (nom && app){
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
