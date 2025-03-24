@@ -4,16 +4,12 @@ package com.hackaton.proyecto;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AgendaTelefonica extends Contacto {
-    public AgendaTelefonica(String nombre, String apellido, String telefono) {
-        super(nombre, apellido, telefono);
-    }
-
-    public class Agenda {
+    public class AgendaTelefonica {
         private static ArrayList<Contacto> contactos = new ArrayList<>();
         private static Scanner scanner = new Scanner(System.in);
 
-        public static void main(String[] args) {
+
+        public void iniciarAgenda() {
             int opcion;
             do {
                 System.out.println("\nAgenda de Contactos");
@@ -47,11 +43,23 @@ public class AgendaTelefonica extends Contacto {
         private static void agregarContacto() {
             System.out.print("Nombre: ");
             String nombre = scanner.nextLine();
+            while(nombre.isEmpty()){
+                System.out.print("Nombre no debe estar vacio: ");
+                nombre = scanner.nextLine();
+            }
+            System.out.print("Apellido: ");
+            String apellido = scanner.nextLine();
+            while(apellido.isEmpty()){
+                System.out.print("Apellido no debe estar vacio: ");
+                apellido = scanner.nextLine();
+            }
             System.out.print("Teléfono: ");
             String telefono = scanner.nextLine();
-            System.out.print("Correo: ");
-            String correo = scanner.nextLine();
-            contactos.add(new Contacto(nombre, telefono, correo));
+            while(telefono.isEmpty()){
+                System.out.print("Telefono no debe estar vacio: ");
+                telefono = scanner.nextLine();
+            }
+            contactos.add(new Contacto(nombre, apellido, telefono));
             System.out.println("Contacto agregado correctamente.");
         }
 
@@ -80,4 +88,4 @@ public class AgendaTelefonica extends Contacto {
             }
         }
     }
-}
+
