@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
     public class AgendaTelefonica {
+        private static final int lIMITE_CONTACTOS = 10;
         private static ArrayList<Contacto> contactos = new ArrayList<>();
         private static Scanner scanner = new Scanner(System.in);
 
@@ -12,39 +13,49 @@ import java.util.Scanner;
         public void iniciarAgenda() {
             int opcion;
             do {
-                System.out.println("\nAgenda de Contactos");
-                System.out.println("1. Agregar Contacto");
-                System.out.println("2. Ver Contactos");
-                System.out.println("3. Eliminar Contacto");
-                System.out.println("4. Modificar Teléfono");
-                System.out.println("5. Salir");
-                System.out.print("Seleccione una opción: ");
-                opcion = scanner.nextInt();
-                scanner.nextLine(); // Limpiar buffer
+                try {
+                    System.out.println("\nAgenda de Contactos");
+                    System.out.println("1. Agregar Contacto");
+                    System.out.println("2. Ver Contactos");
+                    System.out.println("3. Eliminar Contacto");
+                    System.out.println("4. Modificar Telefono");
+                    System.out.println("5. Salir");
+                    System.out.print("Seleccione una opción: ");
+                    opcion = scanner.nextInt();
+                    scanner.nextLine(); // Limpiar buffer
 
-                switch (opcion) {
-                    case 1:
-                        agregarContacto();
-                        break;
-                    case 2:
-                        verContactos();
-                        break;
-                    case 3:
-                        eliminarContacto();
-                        break;
-                    case 4:
-                        modificarTelefono();
-                        break;
-                    case 5:
-                        System.out.println("Saliendo...");
-                        break;
-                    default:
-                        System.out.println("Opción no válida");
+                    switch (opcion) {
+                        case 1:
+                            agregarContacto();
+                            break;
+                        case 2:
+                            verContactos();
+                            break;
+                        case 3:
+                            eliminarContacto();
+                            break;
+                        case 4:
+                            modificarTelefono();
+                            break;
+                        case 5:
+                            System.out.println("Saliendo...");
+                            break;
+                        default:
+                            System.out.println("Opción no válida");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error: Entrada no válida. Intente nuevamente.");
+                    scanner.nextLine(); // Limpiar el buffer para evitar bucles infinitos
+                    opcion = 0; // Evita salir inesperadamente del bucle
                 }
             } while (opcion != 5);
         }
 
         private static void agregarContacto() {
+            if(contactos.size() >= lIMITE_CONTACTOS){
+                System.out.println("La Agenda esta llena");
+                return;
+            }
             System.out.print("Nombre: ");
             String nombre = scanner.nextLine();
             while(nombre.isEmpty()){
