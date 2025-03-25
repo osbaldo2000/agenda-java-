@@ -19,7 +19,8 @@ import java.util.Scanner;
                     System.out.println("2. Ver Contactos");
                     System.out.println("3. Eliminar Contacto");
                     System.out.println("4. Modificar Telefono");
-                    System.out.println("5. Salir");
+                    System.out.println("5. Buscar Contacto");//Uri nueva implementacion
+                    System.out.println("6. Salir");
                     System.out.print("Seleccione una opción: ");
                     opcion = scanner.nextInt();
                     scanner.nextLine(); // Limpiar buffer
@@ -37,7 +38,10 @@ import java.util.Scanner;
                         case 4:
                             modificarTelefono();
                             break;
-                        case 5:
+                        case 5://Llama al metodo de busqueda
+                            buscarContacto();
+                            break;
+                        case 6:
                             System.out.println("Saliendo...");
                             break;
                         default:
@@ -48,7 +52,7 @@ import java.util.Scanner;
                     scanner.nextLine(); // Limpiar el buffer para evitar bucles infinitos
                     opcion = 0; // Evita salir inesperadamente del bucle
                 }
-            } while (opcion != 5);
+            } while (opcion != 6);
         }
 
         private static void agregarContacto() {
@@ -125,3 +129,32 @@ import java.util.Scanner;
         }
     }
 
+    private static void buscaContacto() {
+        if (contactos.isEmpty()) {
+            System.out.println("No hay contactos guardados.");
+            return;
+        }
+
+        System.out.print("Ingrese el nombre del contacto: ");
+        String nombreBuscar = scanner.nextLine();
+
+        System.out.print("Ingrese el apellido del contacto: ");
+        String apellidoBuscar = scanner.nextLine();
+
+        boolean contactoEncontrado = false;
+
+        for (Contacto contacto : contactos) {
+            if (contacto.getNombre().equalsIgnoreCase(nombreBuscar) &&
+                    contacto.getApellido().equalsIgnoreCase(apellidoBuscar)) {
+                System.out.println("Contacto encontrado:");
+                System.out.println("Teléfono: " + contacto.getTelefono());
+                contactoEncontrado = true;
+                break;
+            }
+        }
+
+        if (!contactoEncontrado) {
+            System.out.println("Contacto no encontrado.");
+        }
+    }
+}
