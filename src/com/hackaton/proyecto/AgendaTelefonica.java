@@ -20,7 +20,8 @@ public class AgendaTelefonica {
                 System.out.println("3. Eliminar Contacto");//Esteban
                 System.out.println("4. Modificar Telefono");// Esteban implemento
                 System.out.println("5. Buscar Contacto");//Uri nueva implementacion
-                System.out.println("6. Salir");
+               System.out.println("6. Verificar Espacios Libres");
+                System.out.println("7. Salir");
                 System.out.print("Seleccione una opción: ");
                 opcion = scanner.nextInt();
                 scanner.nextLine();
@@ -42,6 +43,9 @@ public class AgendaTelefonica {
                         buscarContacto();
                         break;
                     case 6:
+                        verificarEspacioLibre();
+                        break;
+                    case 7:
                         System.out.println("Saliendo...");
                         break;
                     default:
@@ -52,7 +56,7 @@ public class AgendaTelefonica {
                 scanner.nextLine();
                 opcion = 0; //osbaldo entrada no valida letra
             }
-        } while (opcion != 6);
+        } while (opcion != 7);
     }
 
     private static void agregarContacto() {
@@ -172,5 +176,10 @@ public class AgendaTelefonica {
         if (!contactoEncontrado) {
             System.out.println("Contacto no encontrado.");
         }
+    }
+    //Método para verificar espacios libres en el arrayList
+    public void verificarEspacioLibre() {
+        int espaciosDisponible = lIMITE_CONTACTOS - contactos.size();
+        System.out.println("Espacios libres en la agenda: " + espaciosDisponible);
     }
 }
