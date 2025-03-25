@@ -1,4 +1,4 @@
-package com.hackaton.proyecto;
+package com.hackaton.proyecto; //jonatan class
 
 public class Contacto {
     private String nombre;
